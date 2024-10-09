@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import UsersList from './Users/UsersList';
 
 const Users: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Users: React.FC = () => {
           <button className="bg-gray-500 text-white px-4 py-2 rounded">Back to Home</button>
         </Link>
       </div>
+      <UsersList />
     </div>
   );
 };
