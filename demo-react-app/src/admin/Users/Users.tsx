@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UsersList from './Users/UsersList';
+import UsersList from './UsersList';
 
 const Users: React.FC = () => {
   return (

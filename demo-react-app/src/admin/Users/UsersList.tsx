@@ -1,32 +1,23 @@
-
-
-
-import React, { useState, useEffect } from 'react';
-import { UserDTO } from '../DTOs/UserDTO';
+import React, { useState, useEffect } from "react";
+import { UserDTO } from "../DTOs/UserDTO";
+import { Link } from "react-router-dom";
+import { UserService } from "./UserService";
 
 const UsersList: React.FC = () => {
-  // Dummy data for now
-  const [users, setUsers] = useState<UserDTO[]>([
-    {
-      UserID: '1',
-      UserType: 'Admin',
-      UserEmail: 'admin@example.com',
-      DateJoined: new Date('2023-01-01'),
-      DateLastUpdated: new Date('2023-05-10')
-    },
-    {
-      UserID: '2',
-      UserType: 'User',
-      UserEmail: 'user@example.com',
-      DateJoined: new Date('2023-02-15'),
-      DateLastUpdated: new Date('2023-06-12')
-    }
-  ]);
+  const [users, setUsers] = useState<UserDTO[]>([]);
 
-  // In future, fetch data from API here
+  const fetchUsers = async () => {
+    try {
+      const users = await UserService.getAllUsers();
+      setUsers(users);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+
+    }
+  };
+
   useEffect(() => {
-    // TODO: Implement API call to fetch users
-    // fetchUsers();
+    fetchUsers();
   }, []);
 
   return (
@@ -45,12 +36,23 @@ const UsersList: React.FC = () => {
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
             {users.map((user) => (
-              <tr key={user.UserID} className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="py-3 px-6 text-left whitespace-nowrap">{user.UserID}</td>
-                <td className="py-3 px-6 text-left">{user.UserType}</td>
-                <td className="py-3 px-6 text-left">{user.UserEmail}</td>
-                <td className="py-3 px-6 text-left">{user.DateJoined.toDateString()}</td>
-                <td className="py-3 px-6 text-left">{user.DateLastUpdated.toDateString()}</td>
+              <tr
+                key={user.userID}
+                className="border-b border-gray-200 hover:bg-gray-100"
+              >
+                <td className="py-3 px-6 text-left whitespace-nowrap">
+                  <Link to={`/admin/users/${user.userID}`} className="text-blue-600 hover:underline">
+                    {user.userID}
+                  </Link>
+                </td>
+                <td className="py-3 px-6 text-left">{user.userType}</td>
+                <td className="py-3 px-6 text-left">{user.userEmail}</td>
+                <td className="py-3 px-6 text-left">
+                  {new Date(user.dateJoined).toDateString()}
+                </td>
+                <td className="py-3 px-6 text-left">
+                  {new Date(user.dateLastUpdated).toDateString()}
+                </td>
               </tr>
             ))}
           </tbody>

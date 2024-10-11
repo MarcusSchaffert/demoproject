@@ -62,7 +62,6 @@ namespace DemoProject.API.Data
                     }
                 };
 
-                var doesEqual = BCrypt.Net.BCrypt.Verify("passwordAdmin", passwordAdmin);
                 context.Users.AddRange(users);
                 await context.SaveChangesAsync();
 

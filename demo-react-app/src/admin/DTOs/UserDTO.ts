@@ -1,8 +1,8 @@
 export type UserDTO = {
-    UserID: string;
-    UserType: string;
-    UserEmail: string;
-    DateJoined: Date;
-    DateLastUpdated: Date;
+    userID: string;
+    userType: string;
+    userEmail: string;
+    dateJoined: Date;
+    dateLastUpdated: Date;
   };
   
